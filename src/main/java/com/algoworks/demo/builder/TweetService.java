@@ -14,14 +14,12 @@ import java.util.List;
 public class TweetService {
 
     @Autowired
-    FileReader fileReader ;
+    FileReader fileReader;
 
-    public List<TweetResponse> getAlltweets()
-    {
+    public List<TweetResponse> getAllTweets() {
         List<TweetResponse> tweetResponses = new ArrayList<>();
         List<Tweet> getTweets = fileReader.fileReader();
-        for(Tweet t : getTweets )
-        {
+        for (Tweet t : getTweets) {
             TweetResponse tweetResponse = new TweetResponse();
             tweetResponse.setDateOfCreation(t.getCreatedAt());
             tweetResponse.setId(t.getUserId());
@@ -31,25 +29,20 @@ public class TweetService {
         return tweetResponses;
     }
 
-    public List<TwitterUser> getAllUsers()
-    {
+    public List<TwitterUser> getAllUsers() {
         List<TwitterUser> users = new ArrayList<TwitterUser>();
         List<Tweet> getTweets = fileReader.fileReader();
-        for (Tweet t : getTweets)
-        {
+        for (Tweet t : getTweets) {
             users.add(t.getUser());
         }
         return users;
     }
 
-    public TweetResponse getTweetById(long tweetId)
-    {
+    public TweetResponse getTweetById(long tweetId) {
         TweetResponse tweetResponse = new TweetResponse();
         List<Tweet> getTweets = fileReader.fileReader();
-        for (Tweet t : getTweets)
-        {
-            if(t.getUserId() == tweetId)
-            {
+        for (Tweet t : getTweets) {
+            if (t.getUserId() == tweetId) {
                 tweetResponse.setDateOfCreation(t.getCreatedAt());
                 tweetResponse.setId(t.getUserId());
                 tweetResponse.setText(t.getText());
@@ -59,14 +52,11 @@ public class TweetService {
         return tweetResponse;
     }
 
-    public TwitterUser getUserByScreenName(String userScreenName)
-    {
+    public TwitterUser getUserByScreenName(String userScreenName) {
         TwitterUser user = new TwitterUser();
         List<Tweet> getTweets = fileReader.fileReader();
-        for (Tweet t : getTweets)
-        {
-            if(userScreenName.equals(t.getUser().getScreenName()))
-            {
+        for (Tweet t : getTweets) {
+            if (userScreenName.equals(t.getUser().getScreenName())) {
                 user = t.getUser();
                 break;
             }

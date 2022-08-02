@@ -11,12 +11,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 public class FileReader {
 
+    Logger logger = Logger.getLogger(FileReader.class.getName());
     @Value("${file.path}")
-    private String JSON_PATH;
+    private String jsonPath;
 
     public List<Tweet> fileReader() {
         ObjectMapper mapper = new ObjectMapper();
@@ -24,10 +26,10 @@ public class FileReader {
         };
         List<Tweet> tweets = new ArrayList<Tweet>();
         try {
-            InputStream inputStream = Files.newInputStream(Paths.get(JSON_PATH));
+            InputStream inputStream = Files.newInputStream(Paths.get(jsonPath));
             tweets = mapper.readValue(inputStream, typeReference);
         } catch (Exception e) {
-            System.err.println("Unable to read tweets: " + e.getMessage());
+            logger.info("Unable to read tweets: " + e.getMessage());
         }
         return tweets;
     }

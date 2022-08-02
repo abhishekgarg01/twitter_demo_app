@@ -25,7 +25,7 @@ public class Place {
     @JsonProperty("polylines")
     private String[] polyLines;
     @JsonProperty("bounding_box")
-    private Map<String,Object> boundingBox;
+    private Map<String, Object> boundingBox;
     @JsonProperty("attributes")
     private Object attribute;
 

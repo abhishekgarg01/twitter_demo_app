@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Geo {
 
     private String type;
-    private int[] coordinates;
+    private Double[] coordinates;
 
 }

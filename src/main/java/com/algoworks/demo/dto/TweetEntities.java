@@ -19,7 +19,7 @@ public class TweetEntities {
     private List<Urls> url;
 
     @JsonProperty("user_mentions")
-    private  List<UserMentions> userMentions;
+    private List<UserMentions> userMentions;
 
     @JsonIgnore
     private String media;
