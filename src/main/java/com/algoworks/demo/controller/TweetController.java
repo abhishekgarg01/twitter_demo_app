@@ -1,6 +1,7 @@
 package com.algoworks.demo.controller;
 
 import com.algoworks.demo.builder.TweetService;
+import com.algoworks.demo.dto.Links;
 import com.algoworks.demo.dto.TweetResponse;
 import com.algoworks.demo.dto.TwitterUser;
 import com.algoworks.demo.exception.InvalidInputException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @RestController
@@ -72,5 +74,16 @@ public class TweetController {
             logger.info(e.toString());
         }
         return twitterUser;
+    }
+
+    @GetMapping("/urls")
+    public Map<Long, Links> getAllUrls() {
+        Map<Long, Links> externalUrls = null;
+        try {
+            externalUrls = tweetService.getAllUrls();
+        } catch (Exception e) {
+            logger.info(e.toString());
+        }
+        return externalUrls;
     }
 }

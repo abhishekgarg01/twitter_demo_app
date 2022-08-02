@@ -1,6 +1,7 @@
 package com.algoworks.demo.builder;
 
 import com.algoworks.demo.dataaccessor.FileReader;
+import com.algoworks.demo.dto.Links;
 import com.algoworks.demo.dto.Tweet;
 import com.algoworks.demo.dto.TweetResponse;
 import com.algoworks.demo.dto.TwitterUser;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TweetService {
@@ -62,5 +65,24 @@ public class TweetService {
             }
         }
         return user;
+    }
+
+    public Map<Long, Links> getAllUrls() {
+        List<Tweet> getTweets = fileReader.fileReader();
+        Map<Long, Links> externalUrls = new HashMap<>();
+        Links links = null;
+
+        for (Tweet t : getTweets) {
+            links = new Links(t.getUser().getProfileBackgroundImageUrl(),
+                    t.getUser().getProfileBackgroundImageUrlHttps(),
+                    t.getUser().getProfileBannerUrl(), t.getUser().getProfileImageUrl(),
+                    t.getUser().getProfileImageUrlHttps(), t.getUser().getUserUrl(),
+                    t.getUser().getEntities().getUrl().getUrls().get(0).getUserEntityUrl(),
+                    t.getUser().getEntities().getUrl().getUrls().get(0).getUserEntityExpandedUrl(),
+                    t.getUser().getEntities().getUrl().getUrls().get(0).getUserEntityDisplayUrl());
+            externalUrls.put(t.getUser().getId(), links);
+        }
+
+        return externalUrls;
     }
 }
